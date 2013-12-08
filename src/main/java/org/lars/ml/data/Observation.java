@@ -13,16 +13,23 @@ import java.util.List;
  */
 public class Observation {
 
-    private String clazz;
-    private List<Double> features;
+    private final String clazz;
+    private final List<Double> features;
 
     public Observation(String line, String delim, int classPosition) {
         String[] splitLine = line.split(delim);
-
         clazz = splitLine[classPosition];
 
         Double[] splitLineDouble = getDoublesExcept(splitLine, classPosition);
         features = Lists.newArrayList(splitLineDouble);
+    }
+
+    public String getClazz() {
+        return clazz;
+    }
+
+    public List<Double> getFeatures() {
+        return features;
     }
 
     private Double[] getDoublesExcept(String[] splitLine, int except) {
@@ -34,14 +41,5 @@ public class Observation {
             splitLineDouble[i] = Double.parseDouble(splitLine[i]);
         }
         return splitLineDouble;
-    }
-
-
-    public String getClazz() {
-        return clazz;
-    }
-
-    public List<Double> getFeatures() {
-        return features;
     }
 }

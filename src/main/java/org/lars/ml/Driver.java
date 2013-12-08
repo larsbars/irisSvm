@@ -37,14 +37,6 @@ public class Driver {
         driver.run(inputDataPath, outputResultsPath);
     }
 
-    private static void checkArgLengthAndPrintUsage(String[] args) {
-        if (args.length < 2) {
-            System.out.println("Usage:");
-            System.out.println("\tiris <iris dataset path> <results output directory>:");
-            System.exit(0);
-        }
-    }
-
     /**
      * Run an iteration of svm learning against the iris dataset, evaluate the performance and write out a results file.
      */
@@ -60,6 +52,14 @@ public class Driver {
         svm_model model = svm.trainModel(trainingData);
         EvaluationMetrics metrics = evaluateModel(testingData, model);
         writeResultsFile(results, resultsPath, trainingData, model, metrics);
+    }
+
+    private static void checkArgLengthAndPrintUsage(String[] args) {
+        if (args.length < 2) {
+            System.out.println("Usage:");
+            System.out.println("\tiris <iris dataset path> <results output directory>:");
+            System.exit(0);
+        }
     }
 
     private void writeResultsFile(StringBuilder results, String resultsPath, Dataset trainingData, svm_model model, EvaluationMetrics metrics) {
