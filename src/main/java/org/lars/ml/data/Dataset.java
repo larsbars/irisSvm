@@ -34,6 +34,7 @@ public class Dataset {
     /**
      * return the class code for a given observation by looking into the class metadata (i.e. class name to class code
      * mapping).
+     *
      * @param observation
      * @return
      */
@@ -41,15 +42,24 @@ public class Dataset {
         return classMetadata.get(observation.getClazz());
     }
 
-    public String getClassName(Integer classCode){
+    public String getClassName(Integer classCode) {
         for (String className : classMetadata.keySet()) {
-            if(classMetadata.get(className).equals(classCode)){
+            if (classMetadata.get(className).equals(classCode)) {
                 return className;
             }
         }
 
         return null;
     }
+
+    public int getNumberOfClasses() {
+        return classMetadata.keySet().size();
+    }
+
+    public int getNumberOfFeatures() {
+        return observations.get(0).getFeatures().size();
+    }
+
 
     /**
      * A method to split a dataset into two datasets by a specified percentage.  This method is class-aware.
@@ -92,6 +102,4 @@ public class Dataset {
             }
         }
     }
-
-
 }

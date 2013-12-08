@@ -49,30 +49,38 @@ public class Driver {
      * Run an iteration of svm learning against the iris dataset, evaluate the performance and write out a results file.
      */
     public void run(String inputPath, String resultsPath) {
+        StringBuilder results = new StringBuilder();
+
         Dataset[] trainingAndTesting = MLFileReader.readFile(new File(inputPath)).split(PERCENTAGE);
         Dataset trainingData = trainingAndTesting[0];
         Dataset testingData = trainingAndTesting[1];
 
+        logDatasetInformation(results, trainingData, testingData);
+
         svm_model model = svm.trainModel(trainingData);
         EvaluationMetrics metrics = evaluateModel(testingData, model);
-        writeResultsFile(resultsPath, trainingData, model, metrics);
+        writeResultsFile(results, resultsPath, trainingData, model, metrics);
     }
 
-    private void writeResultsFile(String resultsPath, Dataset trainingData, svm_model model, EvaluationMetrics metrics) {
+    private void writeResultsFile(StringBuilder results, String resultsPath, Dataset trainingData, svm_model model, EvaluationMetrics metrics) {
         try {
-            File resultsFile = new File(FilenameUtils.concat(resultsPath, RESULTS_FILE));
-            StringBuilder builder = new StringBuilder();
+            File resultsDirectory = new File(resultsPath);
+            if(!resultsDirectory.exists()){
+                resultsDirectory.mkdir();
+            }
 
-            builder.append("SVM Model Information:\n");
+            File resultsFile = new File(FilenameUtils.concat(resultsPath, RESULTS_FILE));
+
+            results.append("\nSVM Model Information:\n");
             for (int i = 0; i < model.nSV.length; i++) {
-                builder.append("\tNumber of support Vectors for class: "
+                results.append("\tNumber of support Vectors for class: "
                         + trainingData.getClassName(i) + " is: " + model.nSV[i] + "\n");
             }
 
-            builder.append("Correctly Classified: " + metrics.getCorrectlyClassified() +
+            results.append("\nCorrectly Classified: " + metrics.getCorrectlyClassified() +
                     " Incorrectly Classified: " + metrics.getIncorrectlyClassified() + "\n");
 
-            Files.write(builder.toString().getBytes(), resultsFile);
+            Files.write(results.toString().getBytes(), resultsFile);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
@@ -91,6 +99,17 @@ public class Driver {
             }
         }
         return new EvaluationMetrics(correct, incorrect);
+    }
+
+    private void logDatasetInformation(StringBuilder results, Dataset trainingData, Dataset testingData) {
+        results.append("Total number of instances in the file: " +
+                (trainingData.getObservations().size() + testingData.getObservations().size()) + "\n");
+        results.append("Total number of observations allocated for Training: " +
+                trainingData.getObservations().size() + "\n");
+        results.append("Total number of observations allocated for Testing: " +
+                testingData.getObservations().size() + "\n");
+        results.append("Total number of classes observed: " + trainingData.getNumberOfClasses() + "\n");
+        results.append("Total number of features observed: " + trainingData.getNumberOfFeatures() + "\n");
     }
 
 }
