@@ -69,7 +69,7 @@ set CMD_LINE_ARGS=%$
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\irisSvm-1.0.jar;%APP_HOME%\lib\guava-14.0.1.jar;%APP_HOME%\lib\commons-lang-2.6.jar;%APP_HOME%\lib\commons-io-2.4.jar;%APP_HOME%\lib\commons-collections4-4.0.jar;%APP_HOME%\lib\libsvm-3.17.jar;%APP_HOME%\lib\spring-2.5.6.jar;%APP_HOME%\lib\commons-logging-1.1.1.jar
+set CLASSPATH=%APP_HOME%\lib\irisSvm-1.0.jar;%APP_HOME%\lib\guava-14.0.1.jar;%APP_HOME%\lib\commons-lang-2.6.jar;%APP_HOME%\lib\commons-io-2.4.jar;%APP_HOME%\lib\commons-collections4-4.0.jar;%APP_HOME%\lib\libsvm-3.17.jar
 
 @rem Execute irisSvm
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IRIS_SVM_OPTS%  -classpath "%CLASSPATH%" org.lars.ml.Driver %CMD_LINE_ARGS%
