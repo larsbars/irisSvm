@@ -1,14 +1,14 @@
 @if "%DEBUG%" == "" @echo off
 @rem ##########################################################################
 @rem
-@rem  iris startup script for Windows
+@rem  irisSvm startup script for Windows
 @rem
 @rem ##########################################################################
 
 @rem Set local scope for the variables with windows NT shell
 if "%OS%"=="Windows_NT" setlocal
 
-@rem Add default JVM options here. You can also use JAVA_OPTS and IRIS_OPTS to pass JVM options to this script.
+@rem Add default JVM options here. You can also use JAVA_OPTS and IRIS_SVM_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS=
 
 set DIRNAME=%~dp0
@@ -69,19 +69,19 @@ set CMD_LINE_ARGS=%$
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\iris-1.0.jar;%APP_HOME%\lib\guava-14.0.1.jar;%APP_HOME%\lib\commons-lang-2.6.jar;%APP_HOME%\lib\commons-io-2.4.jar;%APP_HOME%\lib\commons-collections4-4.0.jar;%APP_HOME%\lib\libsvm-3.17.jar;%APP_HOME%\lib\spring-2.5.6.jar;%APP_HOME%\lib\commons-logging-1.1.1.jar
+set CLASSPATH=%APP_HOME%\lib\irisSvm-1.0.jar;%APP_HOME%\lib\guava-14.0.1.jar;%APP_HOME%\lib\commons-lang-2.6.jar;%APP_HOME%\lib\commons-io-2.4.jar;%APP_HOME%\lib\commons-collections4-4.0.jar;%APP_HOME%\lib\libsvm-3.17.jar;%APP_HOME%\lib\spring-2.5.6.jar;%APP_HOME%\lib\commons-logging-1.1.1.jar
 
-@rem Execute iris
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IRIS_OPTS%  -classpath "%CLASSPATH%" org.lars.ml.Driver %CMD_LINE_ARGS%
+@rem Execute irisSvm
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %IRIS_SVM_OPTS%  -classpath "%CLASSPATH%" org.lars.ml.Driver %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell
 if "%ERRORLEVEL%"=="0" goto mainEnd
 
 :fail
-rem Set variable IRIS_EXIT_CONSOLE if you need the _script_ return code instead of
+rem Set variable IRIS_SVM_EXIT_CONSOLE if you need the _script_ return code instead of
 rem the _cmd.exe /c_ return code!
-if  not "" == "%IRIS_EXIT_CONSOLE%" exit 1
+if  not "" == "%IRIS_SVM_EXIT_CONSOLE%" exit 1
 exit /b 1
 
 :mainEnd
