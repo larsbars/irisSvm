@@ -8,6 +8,10 @@ apply plugin: 'application'
 sourceCompatibility = 1.6
 mainClassName = "org.lars.ml.Driver"
 
+task wrapper(type: Wrapper) {
+  gradleVersion = '1.8'
+}
+
 installApp {
   destinationDir = file('irisSvmApp')
 }
